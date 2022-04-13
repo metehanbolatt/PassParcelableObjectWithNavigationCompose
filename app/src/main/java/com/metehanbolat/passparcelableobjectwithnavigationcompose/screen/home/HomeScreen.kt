@@ -12,19 +12,24 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavHostController
 import com.metehanbolat.passparcelableobjectwithnavigationcompose.Person
+import com.metehanbolat.passparcelableobjectwithnavigationcompose.SharedViewModel
 import com.metehanbolat.passparcelableobjectwithnavigationcompose.navigation.Screen
 
 @Composable
 fun HomeScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    sharedViewModel: SharedViewModel
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .clickable {
                 val person = Person(firstName = "John", lastName = "Doe")
-                navController.currentBackStackEntry?.savedStateHandle?.set("person", person)
+                sharedViewModel.addPerson(newPerson = person)
                 navController.navigate(Screen.Details.route)
+                //navController.currentBackStackEntry?.savedStateHandle?.set("person", person)
+                //navController.popBackStack()
+                //navController.navigate(Screen.Details.route)
             },
         contentAlignment = Alignment.Center
     ) {
